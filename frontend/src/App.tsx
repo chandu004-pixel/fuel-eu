@@ -9,6 +9,7 @@ type TabType = 'routes' | 'compare' | 'banking' | 'pooling'
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('routes')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const handleExportReport = () => {
     const timestamp = new Date().toISOString().split('T')[0]
@@ -40,54 +41,115 @@ function App() {
     alert(`Report exported successfully as ${filename}`)
   }
 
+  const handleTabChange = (tab: TabType) => {
+    setActiveTab(tab)
+    setMobileMenuOpen(false) // Close mobile menu when tab is selected
+  }
+
   return (
     <div className="min-h-screen gradient-bg">
       {/* Header */}
       <header className="border-b border-gray-800/50 backdrop-blur-xl bg-gray-900/30 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-neon p-0.5">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-neon p-0.5">
                 <div className="w-full h-full bg-gray-950 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">⚡</span>
+                  <span className="text-xl sm:text-2xl">⚡</span>
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-bold neon-text">Fuel EU Compliance</h1>
-                <p className="text-sm text-gray-400">Maritime Dashboard</p>
+                <h1 className="text-lg sm:text-2xl font-bold neon-text">Fuel EU Compliance</h1>
+                <p className="text-xs sm:text-sm text-gray-400 hidden sm:block">Maritime Dashboard</p>
               </div>
             </div>
-            <button onClick={handleExportReport} className="btn-neon">
+
+            {/* Desktop Export Button */}
+            <button onClick={handleExportReport} className="hidden sm:block btn-neon text-sm">
               Export Report
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="sm:hidden p-2 rounded-lg border border-gray-700 hover:border-neon-cyan transition-colors"
+              aria-label="Toggle menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Tab Navigation */}
-      <div className="max-w-7xl mx-auto px-6 py-6">
-        <div className="glass-card p-2 inline-flex gap-2 mb-8">
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onClick={() => setMobileMenuOpen(false)}>
+          <div className="glass-card m-4 p-4 space-y-2" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => handleTabChange('routes')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'routes' ? 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan' : 'hover:bg-gray-800'
+                }`}
+            >
+              🚢 Routes
+            </button>
+            <button
+              onClick={() => handleTabChange('compare')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'compare' ? 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan' : 'hover:bg-gray-800'
+                }`}
+            >
+              📊 Compare
+            </button>
+            <button
+              onClick={() => handleTabChange('banking')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'banking' ? 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan' : 'hover:bg-gray-800'
+                }`}
+            >
+              🏦 Banking
+            </button>
+            <button
+              onClick={() => handleTabChange('pooling')}
+              className={`w-full text-left px-4 py-3 rounded-lg transition-colors ${activeTab === 'pooling' ? 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan' : 'hover:bg-gray-800'
+                }`}
+            >
+              💧 Pooling
+            </button>
+            <button onClick={handleExportReport} className="w-full btn-neon mt-4">
+              Export Report
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Desktop Tab Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
+        <div className="hidden sm:flex glass-card p-2 gap-2 mb-6 sm:mb-8 overflow-x-auto">
           <button
             onClick={() => setActiveTab('routes')}
-            className={`tab-button ${activeTab === 'routes' ? 'active' : ''}`}
+            className={`tab-button whitespace-nowrap ${activeTab === 'routes' ? 'active' : ''}`}
           >
             🚢 Routes
           </button>
           <button
             onClick={() => setActiveTab('compare')}
-            className={`tab-button ${activeTab === 'compare' ? 'active' : ''}`}
+            className={`tab-button whitespace-nowrap ${activeTab === 'compare' ? 'active' : ''}`}
           >
             📊 Compare
           </button>
           <button
             onClick={() => setActiveTab('banking')}
-            className={`tab-button ${activeTab === 'banking' ? 'active' : ''}`}
+            className={`tab-button whitespace-nowrap ${activeTab === 'banking' ? 'active' : ''}`}
           >
             🏦 Banking
           </button>
           <button
             onClick={() => setActiveTab('pooling')}
-            className={`tab-button ${activeTab === 'pooling' ? 'active' : ''}`}
+            className={`tab-button whitespace-nowrap ${activeTab === 'pooling' ? 'active' : ''}`}
           >
             💧 Pooling
           </button>
