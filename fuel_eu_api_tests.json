@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "ef8eae48-2e5b-4975-bfa7-8d9a3ec09409",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49017615",
+		"_collection_link": "https://chandrildas28-1893967.postman.co/workspace/Chandril-Das's-Workspace~47297a1d-99ca-4b3e-8cff-828c496861a2/collection/49017615-ef8eae48-2e5b-4975-bfa7-8d9a3ec09409?action=share&source=collection_link&creator=49017615"
+	},
+	"item": [
+		{
+			"name": "health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://fuel-eu-oqpj.onrender.com/api/routes",
+					"protocol": "https",
+					"host": [
+						"fuel-eu-oqpj",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
