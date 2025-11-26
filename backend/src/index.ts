@@ -1,14 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import { initializeDatabase } from './db/connection';
-import { seedDatabase } from './db/seed';
+import { connectToMongoDB } from './db/mongo_connection';
+import { seedMongoDatabase } from './db/mongo_seed';
 
-// Repositories - Using InMemory for now (switch to Postgres when DB is ready)
-// import { PostgresRouteRepository } from './adapters/outbound/postgres/RouteRepositoryImpl';
-// import { PostgresComplianceRepository } from './adapters/outbound/postgres/ComplianceRepositoryImpl';
-// import { PostgresBankingRepository } from './adapters/outbound/postgres/BankingRepositoryImpl';
-// import { PostgresPoolRepository } from './adapters/outbound/postgres/PoolRepositoryImpl';
-import { InMemoryRouteRepository, InMemoryComplianceRepository, InMemoryBankingRepository, InMemoryPoolRepository } from './adapters/outbound/memory/InMemoryRepositories';
+// Repositories - Using MongoDB
+import { MongoRouteRepository } from './adapters/outbound/mongodb/MongoRouteRepository';
+import { MongoComplianceRepository } from './adapters/outbound/mongodb/MongoComplianceRepository';
+import { MongoBankingRepository } from './adapters/outbound/mongodb/MongoBankingRepository';
+import { MongoPoolRepository } from './adapters/outbound/mongodb/MongoPoolRepository';
 
 // Services
 import { RouteService } from './core/domain/RouteService';
@@ -29,11 +28,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Initialize repositories (dependency injection) - Using InMemory
-const routeRepo = new InMemoryRouteRepository();
-const complianceRepo = new InMemoryComplianceRepository();
-const bankingRepo = new InMemoryBankingRepository();
-const poolRepo = new InMemoryPoolRepository();
+// Initialize repositories (dependency injection) - Using MongoDB
+const routeRepo = new MongoRouteRepository();
+const complianceRepo = new MongoComplianceRepository();
+const bankingRepo = new MongoBankingRepository();
+const poolRepo = new MongoPoolRepository();
 
 // Initialize services
 const routeService = new RouteService(routeRepo);
@@ -68,15 +67,15 @@ app.get('/api/pools/:poolId/members', poolingController.getPoolMembers);
 
 // Health check
 app.get('/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Fuel EU Compliance API is running' });
+    res.json({ status: 'ok', message: 'Fuel EU Compliance API is running (MongoDB)' });
 });
 
 // Start server
 async function startServer() {
     try {
-        // Database initialization disabled - using InMemory repositories
-        // await initializeDatabase();
-        // await seedDatabase();
+        await connectToMongoDB();
+        await seedMongoDatabase();
+
         app.listen(PORT, () => {
             console.log(`🚀 Server running on http://localhost:${PORT}`);
             console.log(`📊 API endpoints available at http://localhost:${PORT}/api`);
