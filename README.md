@@ -12,7 +12,7 @@ A modern, full-stack maritime emissions tracking and compliance management syste
 
 ## 🚀 Live Demo
 
-- **Frontend**: [(https://fuel-eu-eight.vercel.app/)](hhttps://fuel-eu-eight.vercel.app/) 
+- **Frontend**: [https://fuel-eu-eight.vercel.app/](hhttps://fuel-eu-eight.vercel.app/) 
 - **Backend API**: [https://fuel-eu-oqpj.onrender.com](https://fuel-eu-oqpj.onrender.com)
 - **API Health**: [https://fuel-eu-oqpj.onrender.com/health](https://fuel-eu-oqpj.onrender.com/health)
 
