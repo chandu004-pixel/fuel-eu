@@ -491,7 +491,7 @@ This project is licensed under the MIT License.
 
 For issues and questions:
 - **GitHub Issues**: [Create an issue](https://github.com/chandu004-pixel/fuel-eu/issues)
-- **Email**: your-email@example.com *(Update with your email)*
+- **Email**: your-chandrildas28@gmail.com
 
 ---
 
